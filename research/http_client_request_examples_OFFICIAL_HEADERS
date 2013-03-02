@@ -1,0 +1,69 @@
+#######################################################################
+EXAMPLE 1:
+	Request jav_config.ws from jagex official client
+	
+
+0000   34 08 04 25 2c 08 08 86 3b 48 45 d8 08 00 45 00  4..%,...;HE...E.
+0010   00 df 44 29 40 00 80 06 2f 8a c0 a8 00 6b 52 d3  ..D)@.../....kR.
+0020   72 7f 22 c6 00 50 7e f6 5a b3 5a e8 2f 93 50 18  r."..P~.Z.Z./.P.
+0030   fa f0 ab 9c 00 00 47 45 54 20 2f 6b 3d 33 2f 6c  ......GET /k=3/l
+0040   3d 30 2f 6a 61 76 5f 63 6f 6e 66 69 67 2e 77 73  =0/jav_config.ws
+0050   20 48 54 54 50 2f 31 2e 31 0d 0a 55 73 65 72 2d   HTTP/1.1..User-
+0060   41 67 65 6e 74 3a 20 4a 61 76 61 2f 31 2e 37 2e  Agent: Java/1.7.
+0070   30 2d 69 6e 74 65 72 6e 61 6c 0d 0a 48 6f 73 74  0-internal..Host
+0080   3a 20 77 77 77 2e 72 75 6e 65 73 63 61 70 65 2e  : www.runescape.
+0090   63 6f 6d 0d 0a 41 63 63 65 70 74 3a 20 74 65 78  com..Accept: tex
+00a0   74 2f 68 74 6d 6c 2c 20 69 6d 61 67 65 2f 67 69  t/html, image/gi
+00b0   66 2c 20 69 6d 61 67 65 2f 6a 70 65 67 2c 20 2a  f, image/jpeg, *
+00c0   3b 20 71 3d 2e 32 2c 20 2a 2f 2a 3b 20 71 3d 2e  ; q=.2, */*; q=.
+00d0   32 0d 0a 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20 6b  2..Connection: k
+00e0   65 65 70 2d 61 6c 69 76 65 0d 0a 0d 0a           eep-alive....
+
+GET /k=3/l=0/jav_config.ws HTTP/1.1
+User-Agent: Java/1.7.0-internal
+Host: www.runescape.com
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+RESPONCE:
+
+HTTP/1.1 302 MOVED
+Location: http://world10.runescape.com/k=3/jav_config.ws?userFlow=11412246335361605
+Set-Cookie: settings=wwGlrZHF5gKN6D3mDdihco3oPeYN2KFybL9hUUFqOvk; version=1; path=/; domain=.runescape.com; Expires=Sat, 27-Feb-2016 18:34:09 GMT; Max-Age=94608000
+Set-Cookie: JXFLOWCONTROL=11412246335361605; version=1; path=/; domain=.runescape.com; HttpOnly
+Set-Cookie: JXTRACKING=018D8781EB0000013D1CEEDF32; version=1; path=/; domain=.runescape.com; HttpOnly
+Set-Cookie: JXWEBUID=9BBC13BD7E067E0435E8C3A6587F12577E609285699E90BBF50E43DCE04DD27C19D763D904320A52; version=1; path=/; domain=.runescape.com; HttpOnly; Expires=Mon, 17-Mar-2081 21:48:16 GMT; Max-Age=2147483647
+Connection: Keep-alive
+Content-length: 0
+
+FOLLOWUP:
+
+GET /k=3/jav_config.ws?userFlow=11412246335361605 HTTP/1.1
+User-Agent: Java/1.7.0-internal
+Host: world10.runescape.com
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+
+
+NOTE:
+	The current data suggests that source ports are selected by the OS and not forced
+	More capturing is required for full conclusion
+	
+	Cookies are ignored
+	
+	
+#######################################################################
+EXAMPLE 2:
+	Fletch the Jar over HTTP
+	
+GET /k=3/gamepackhcZlTkPNHLWFtPanA+7adjtXDFPvTKOl_6313293.jar HTTP/1.1
+accept-encoding: pack200-gzip
+User-Agent: Java/1.7.0-internal
+Host: world10.runescape.com
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+CONCLUSION:
+	There are no hidden mechanisms in fletching files from the gameserver, all is done using no specially set headers so setting headers, adding fake browser headers will leave a signature.
+	
