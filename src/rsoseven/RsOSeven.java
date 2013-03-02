@@ -24,7 +24,8 @@ public class RsOSeven implements AppletStub{
 	private String className;
 	private Dictionary<String, String> params = new Hashtable<String, String>();
 	private Applet applet;
-
+	private URL jarpath;
+	private URLClassLoader classloader;
 
 	public RsOSeven() throws MalformedURLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
@@ -33,26 +34,30 @@ public class RsOSeven implements AppletStub{
 		//^this for oldscape
 		
 		//FileFletcher a = new FileFletcher(new URL("http://www.runescape.com/k=3/jav_config.ws"), RSHeaders.RS_EOC_CONF);
-		//this for EOC
+		//^this for EOC
 		
 		//TODO: write rsc command
-		//^ this for RSC
+		//^this for RSC
 		
 		ClientConfig b = new ClientConfig(a.getData());
-		FileFletcher c = new FileFletcher(new URL(b.getCodeBase()+b.getJarName()), RSHeaders.RS_2007_CONF);
-		ClientWriter d = new ClientWriter(c.getData(), b.getJarName().replace("/", ""));
 		
-		jarName = b.getJarName().replace("/", "");
+		jarName = b.getJarName();
 		codeBase= new URL(b.getCodeBase());
-		className=b.getClassName();
+		className=b.getClassName().replace(".class", "");
 		params = b.getParams();
 		
-		applet = (Applet) new URLClassLoader(new URL[]{new File("./"+jarName).toURI().toURL()}).loadClass(className.replace(".class", "")).newInstance();
+		jarpath = new URL(codeBase.toString()+jarName);
+		
+		classloader = new URLClassLoader(new URL[]{jarpath});
+		
+		applet = (Applet) classloader.loadClass(className).newInstance();
+		//TODO: needs better way to handle this
+		
+		//classloader.close();
+		
 		applet.setStub(this);
 		applet.init();
 		applet.start();
-		//applet.preferredSize(new Dimention(763,504));
-		
 		
 	}
 
@@ -92,5 +97,9 @@ public class RsOSeven implements AppletStub{
 	public Component getApplet() {
 		// TODO Auto-generated method stub
 		return applet;
+	}
+	
+	public void CloseApplet() throws IOException{
+		classloader.close();
 	}
 }
