@@ -4,7 +4,6 @@ import java.applet.Applet;
 import java.applet.AppletContext;
 import java.applet.AppletStub;
 import java.awt.Component;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,7 +11,6 @@ import java.net.URLClassLoader;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import rsoseven.lib.io.ClientWriter;
 import rsoseven.lib.net.FileFletcher;
 import rsoseven.lib.type.ClientConfig;
 import rsoseven.lib.type.RSHeaders;
