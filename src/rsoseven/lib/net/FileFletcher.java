@@ -22,7 +22,7 @@ public class FileFletcher {
 		this.fileURL=fileURL;
 		this.header=header;
 		URLConnection c = fileURL.openConnection();
-		c.setConnectTimeout(10000);
+		c.setConnectTimeout(20000);
 		Enumeration<String>e=header.getHeaders().keys();
 		c.setUseCaches(true);
 		
