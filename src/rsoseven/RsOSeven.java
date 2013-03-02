@@ -92,6 +92,7 @@ public class RsOSeven implements AppletStub {
 		applet.setStub(this);
 		applet.init();
 		applet.start();
+		applet.setFocusable(true);
 
 	}
 
