@@ -22,12 +22,21 @@ public class FileFletcher {
 		this.fileURL=fileURL;
 		this.header=header;
 		URLConnection c = fileURL.openConnection();
-		c.setConnectTimeout(1000);
+		c.setConnectTimeout(10000);
 		Enumeration<String>e=header.getHeaders().keys();
+		c.setUseCaches(true);
 		
+		if (header.getHeaders().get("accept-encoding")!=null){
+			c.addRequestProperty("accept-encoding",header.getHeaders().get("accept-encoding"));
+		}
 		while (e.hasMoreElements()){
 			String key = e.nextElement();
+			if (key.equals("accept-encoding")){
+				
+			} 
+			else {
 			c.addRequestProperty(key, header.getHeaders().get(key));
+			}
 		}
 		
 		DataInputStream httpInputstream = new DataInputStream(c.getInputStream());

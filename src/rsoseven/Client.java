@@ -4,7 +4,9 @@ package rsoseven;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -13,7 +15,7 @@ import javax.swing.JLabel;
 
 
 public class Client {
-	public static void main(String[] args) throws MalformedURLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void main(String[] args) throws MalformedURLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, URISyntaxException {
 			JFrame frame = new JFrame("Runescape 2007 Client");
 			JLabel label = new JLabel();
 			//JFrame loadingframe = new JFrame("Loading, wait you asshole");
@@ -29,6 +31,8 @@ public class Client {
 			frame.add(label);
 			frame.setVisible(true);
 			frame.pack();			
+			
+			//System.out.println(System.getProperty("java.io.tmpdir"));
 			
 			RsOSeven a = new RsOSeven();
 			frame.add(a.getApplet());
