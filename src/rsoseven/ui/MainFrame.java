@@ -1,7 +1,10 @@
 package rsoseven.ui;
 
+import java.applet.Applet;
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Event;
+import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,8 +13,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
+
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 
 import rsoseven.RsOSeven;
 import tldr.plugins.screenshot.Grabber;
@@ -23,8 +31,11 @@ public class MainFrame {
 
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
-			ClassNotFoundException, URISyntaxException {
+			ClassNotFoundException, URISyntaxException, NativeHookException {
 		frame = new JFrame("Runescape 2007 Client");
+		
+		
+		
 		label = new JLabel();
 		// JFrame loadingframe = new JFrame("Loading, wait you asshole");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,13 +63,28 @@ public class MainFrame {
 		frame.setMinimumSize(new Dimension(770, 530));
 		frame.setResizable(false);
 		label.setVisible(false);
-		frame.addKeyListener(new KeyShortcutReader());
-
+		
+		//add keylistener:
+		GlobalScreen.registerNativeHook();
+		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
+		
+		/*
 		new Grabber(
 				frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
 				frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
 						- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
 				frame.getContentPane().getWidth(),
 				frame.getContentPane().getHeight());
+		*/
 	}
+	public void takeScreen() throws AWTException, IOException{
+		new Grabber (
+		frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
+		frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
+				- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
+		frame.getContentPane().getWidth(),
+		frame.getContentPane().getHeight());
+	}
+	
+	
 }
