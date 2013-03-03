@@ -2,9 +2,11 @@ package rsoseven.ui;
 
 import java.applet.Applet;
 import java.awt.AWTException;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Frame;
+import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,12 +18,14 @@ import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.OverlayLayout;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import rsoseven.RsOSeven;
+import rsoseven.ui.listners.KeyShortcutReader;
 import tldr.plugins.screenshot.Grabber;
 
 public class MainFrame {
@@ -32,10 +36,8 @@ public class MainFrame {
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, URISyntaxException, NativeHookException {
+		
 		frame = new JFrame("Runescape 2007 Client");
-		
-		
-		
 		label = new JLabel();
 		// JFrame loadingframe = new JFrame("Loading, wait you asshole");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,15 +69,16 @@ public class MainFrame {
 		//add keylistener:
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
-	}
-	public void takeScreen() throws AWTException, IOException{
-		new Grabber (
-		frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
-		frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
-				- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
-		frame.getContentPane().getWidth(),
-		frame.getContentPane().getHeight());
-	}
+
+		JPanel glass = (JPanel) frame.getGlassPane();
+		glass.setVisible(true);
+		glass.add(new JLabel("HELLO WORLD"));
+		
 	
-	
+	}
+
+	public JFrame getFrame(){
+		return frame;
+		
+	}
 }

@@ -1,4 +1,4 @@
-package rsoseven;
+package rsoseven.ui;
 
 import java.applet.Applet;
 import java.applet.AppletContext;
@@ -21,7 +21,6 @@ import rsoseven.lib.io.ClientWriter;
 import rsoseven.lib.net.FileFletcher;
 import rsoseven.lib.type.ClientConfig;
 import rsoseven.lib.type.RSHeaders;
-import rsoseven.ui.KeyShortcutReader;
 import rtsoseven.test.lib.net.FileFletcher_test;
 
 public class RsOSeven implements AppletStub {

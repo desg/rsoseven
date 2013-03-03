@@ -1,4 +1,4 @@
-package rsoseven.ui;
+package rsoseven.ui.listners;
 
 import java.awt.AWTException;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
+
+import rsoseven.ui.MainFrame;
+import tldr.plugins.screenshot.Grabber;
 
 
 
@@ -22,10 +25,21 @@ public class KeyShortcutReader implements NativeKeyListener {
 	public void nativeKeyPressed(NativeKeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_F12){
-			System.out.println("F12 pressed");
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_PRINTSCREEN){
+			//DEBUG:
+			System.out.println("Screenshot Key pressed");
+			
+			
+			JFrame frame = mainFrame.getFrame();
+			
 			try {
-				mainFrame.takeScreen();
+					new Grabber (
+					frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
+					frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
+							- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
+					frame.getContentPane().getWidth(),
+					frame.getContentPane().getHeight());
+				
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
