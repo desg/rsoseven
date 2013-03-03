@@ -39,6 +39,7 @@ public class KeyShortcutReader implements NativeKeyListener {
 							- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
 					frame.getContentPane().getWidth(),
 					frame.getContentPane().getHeight());
+					mainFrame.notifyUser("screenshot taken");
 				
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
