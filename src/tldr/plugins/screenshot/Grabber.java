@@ -4,35 +4,113 @@ import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
-public class Grabber {
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
+
+import rsoseven.ui.MainFrame;
+
+public class Grabber extends Thread {
 	
 	private BufferedImage capture;
-	
-	public Grabber(int xp,int yp,int xs,int ys) throws AWTException, IOException{
+	private MainFrame root;
+
+	public Grabber(int xp, int yp, int xs, int ys, MainFrame root) throws AWTException, IOException {
+		this.root=root;
 		this.capture = new Robot().createScreenCapture(new Rectangle(xp, yp, xs, ys));
+	}
+	
+	public void run(){
 		String homeDir = System.getProperty("user.home");
 		String s = File.separator;
+		
 		
 		File imagedic = new File(homeDir+s+"EthoClient");
 		
 		if (!imagedic.exists()){
 			imagedic.mkdir();
 		}
+		
 		String ImagePath = imagedic.getPath()+s+String.valueOf(System.currentTimeMillis())+".png";
 		File outputfile = new File(ImagePath);
-		ImageIO.write(capture, "png", outputfile);
-		/*System.getProperty("user.home");
-		File outputfile = new File("saved.png");
-	    ImageIO.write(capture, "png", outputfile);
-	    */
+		try {
+			ImageIO.write(capture, "png", outputfile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //FileInputStream fileInputStream = new FileInputStream(new File(ImagePath));
+        //URL uploadURL= new URL("http://tldr.me/index.php?act=uploader");
+        	    
 	    
-	    
+        HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+
+        HttpPost httppost = new HttpPost("http://tldr.me/index.php?act=uploader");
+        httppost.setHeader("User-Agent", "fireFOEX");
+        
+        File file = outputfile;
+
+        MultipartEntity mpEntity = new MultipartEntity();
+        ContentBody cbFile = new FileBody(file, "image/png");
+        mpEntity.addPart("Filedata", cbFile);
+
+        
+
+        httppost.setEntity(mpEntity);
+        System.out.println("executing request " + httppost.getRequestLine());
+        HttpResponse response;
+		try {
+			response = httpclient.execute(httppost);
+	        HttpEntity resEntity = response.getEntity();
+
+	        System.out.println(response.getStatusLine());
+	        if (resEntity != null) {
+	          System.out.println(EntityUtils.toString(resEntity));
+	        }
+	        if (resEntity != null) {
+	          resEntity.consumeContent();
+	        }
+
+	        httpclient.getConnectionManager().shutdown();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		root.notifyUser("Screenshot taken");
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		root.clearMessage();
+        
 	}
 	
 }

@@ -2,6 +2,7 @@ package rsoseven.ui;
 
 import java.applet.Applet;
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -46,8 +47,11 @@ public class MainFrame {
 		frame.addWindowListener(new windoListner());
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		label = new JLabel();
-		frame.setBackground(Color.black);
-		label.setBackground(Color.black);
+		
+		//add keylistener:
+		GlobalScreen.registerNativeHook();
+		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
+		
 		
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(new ImageIcon(new URL(
@@ -67,11 +71,11 @@ public class MainFrame {
 		//OVERLAY to show user messages
 		JPanel glass = (JPanel) frame.getGlassPane();
 		glass.setVisible(true);
-		glass.setLayout(new FlowLayout());
+		glass.setLayout(new BorderLayout());
 		
 		userMessage = new JLabel("Welcome to the matrix");
 		userMessage.setVisible(false);
-		glass.add(userMessage);
+		glass.add(userMessage,BorderLayout.SOUTH);
 		
 
 		//Start adding client
@@ -84,12 +88,16 @@ public class MainFrame {
 		frame.setResizable(false);
 		//remove loading image
 		label.setVisible(false);
-		
-		//add keylistener:
-		GlobalScreen.registerNativeHook();
-		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
 
+		frame.setBackground(new Color(0, 0, 0, 0));
+		label.setBackground(new Color(0, 0, 0, 0));
+		glass.setBackground(new Color(0, 0, 0, 0));
+		userMessage.setBackground(new Color(0, 0, 0, 0));
 		
+		frame.setOpacity(0);
+		label.setOpaque(false);
+		glass.setOpaque(false);
+		userMessage.setOpaque(false);
 	}
 
 	public JFrame getFrame(){
@@ -102,5 +110,9 @@ public class MainFrame {
 		userMessage.setVisible(true);
 		userMessage.setText(message);
 		//userMessage.setVisible(false);
+	}
+	
+	public void clearMessage(){
+		userMessage.setVisible(false);
 	}
 }

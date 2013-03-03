@@ -90,13 +90,12 @@ public class RsOSeven implements AppletStub {
 		// classloader.close();
 		// TODO: when client closes end with .close()
 
-		applet.setBackground(Color.black);
-		applet.setForeground(Color.black);
 		applet.setStub(this);
 		applet.init();
 		applet.start();
 		applet.setFocusable(true);
 		
+		applet.setBackground(new Color(0, 0, 0, 0));
 	}
 
 	@Override

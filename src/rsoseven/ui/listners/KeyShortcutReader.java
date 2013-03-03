@@ -24,23 +24,22 @@ public class KeyShortcutReader implements NativeKeyListener {
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
 		if (arg0.getKeyCode()==NativeKeyEvent.VK_PRINTSCREEN){
-			//DEBUG:
-			System.out.println("Screenshot Key pressed");
-			
-			
+			System.out.println("printscreen!");
 			JFrame frame = mainFrame.getFrame();
-			
+
 			try {
 					new Grabber (
 					frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
 					frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
 							- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
 					frame.getContentPane().getWidth(),
-					frame.getContentPane().getHeight());
-					mainFrame.notifyUser("screenshot taken");
-				
+					frame.getContentPane().getHeight(),mainFrame).run();
+					
+					
+					
+					
+			
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
