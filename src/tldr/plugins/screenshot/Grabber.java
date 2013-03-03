@@ -17,11 +17,7 @@ public class Grabber {
 		this.capture = new Robot().createScreenCapture(new Rectangle(xp, yp, xs, ys));
 		File outputfile = new File("saved.png");
 	    ImageIO.write(capture, "png", outputfile);
+	    
 	}
-
-	public Grabber(Rectangle bounds) throws IOException, AWTException {
-		this.capture = new Robot().createScreenCapture(bounds);
-		File outputfile = new File("saved.png");
-	    ImageIO.write(capture, "png", outputfile);
-	}
+	
 }

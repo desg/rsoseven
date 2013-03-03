@@ -67,15 +67,6 @@ public class MainFrame {
 		//add keylistener:
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
-		
-		/*
-		new Grabber(
-				frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,
-				frame.getY() + (frame.getHeight() - frame.getContentPane().getHeight())
-						- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
-				frame.getContentPane().getWidth(),
-				frame.getContentPane().getHeight());
-		*/
 	}
 	public void takeScreen() throws AWTException, IOException{
 		new Grabber (
