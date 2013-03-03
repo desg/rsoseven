@@ -9,8 +9,11 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -38,6 +41,8 @@ public class MainFrame {
 	private JFrame frame;
 	private JLabel label;
 	private JLabel userMessage;
+	private TrayIcon trayIcon;
+	private SystemTray tray = SystemTray.getSystemTray();
 	
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
@@ -52,10 +57,13 @@ public class MainFrame {
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
 		
-		
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setIconImage(new ImageIcon(new URL(
-				"http://www.runescape.com/img/global/mobile.png")).getImage());
+		Image i = new ImageIcon(new URL("http://tldr.me/1mmv0v5.png")).getImage();
+		frame.setIconImage(i);
+		trayIcon = new TrayIcon(i);
+		tray.add(trayIcon);
+		
+		
 		ImageIcon icon = new ImageIcon(new URL(
 				"http://www.runescape.com/img/game/splash.gif"));
 
@@ -77,7 +85,6 @@ public class MainFrame {
 		userMessage.setVisible(false);
 		glass.add(userMessage,BorderLayout.SOUTH);
 		
-
 		//Start adding client
 		RsOSeven a = new RsOSeven();
 		frame.add(a.getApplet());
@@ -86,15 +93,14 @@ public class MainFrame {
 		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
 		frame.setMinimumSize(new Dimension(770, 530));
 		frame.setResizable(false);
+		
 		//remove loading image
 		label.setVisible(false);
 
-		frame.setBackground(new Color(0, 0, 0, 0));
 		label.setBackground(new Color(0, 0, 0, 0));
 		glass.setBackground(new Color(0, 0, 0, 0));
 		userMessage.setBackground(new Color(0, 0, 0, 0));
 		
-		frame.setOpacity(0);
 		label.setOpaque(false);
 		glass.setOpaque(false);
 		userMessage.setOpaque(false);
@@ -106,13 +112,13 @@ public class MainFrame {
 	}
 	
 	public void notifyUser(String message){
-		//this does nothing for now
-		userMessage.setVisible(true);
-		userMessage.setText(message);
-		//userMessage.setVisible(false);
+
+				trayIcon.displayMessage("Screenshot taken",
+				"Screenshot saved, Uploaded and copied to clipboard",
+				TrayIcon.MessageType.WARNING);
 	}
 	
 	public void clearMessage(){
-		userMessage.setVisible(false);
+		//userMessage.setVisible(false);
 	}
 }

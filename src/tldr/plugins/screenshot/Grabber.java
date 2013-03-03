@@ -3,6 +3,9 @@ package tldr.plugins.screenshot;
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -68,7 +71,7 @@ public class Grabber extends Thread {
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-        HttpPost httppost = new HttpPost("http://tldr.me/index.php?act=uploader");
+        HttpPost httppost = new HttpPost("http://tldr.me/index.php?act=uploader&display=link");
         httppost.setHeader("User-Agent", "fireFOEX");
         
         File file = outputfile;
@@ -88,7 +91,10 @@ public class Grabber extends Thread {
 
 	        System.out.println(response.getStatusLine());
 	        if (resEntity != null) {
-	          System.out.println(EntityUtils.toString(resEntity));
+	          //System.out.println(EntityUtils.toString(resEntity));
+	    	    StringSelection selection = new StringSelection(EntityUtils.toString(resEntity));
+	    	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+	    	    clipboard.setContents(selection, selection);
 	        }
 	        if (resEntity != null) {
 	          resEntity.consumeContent();
@@ -102,7 +108,7 @@ public class Grabber extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		root.notifyUser("Screenshot taken");
+		root.notifyUser("Screenshot Saved and added to clipboard");
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
@@ -110,7 +116,6 @@ public class Grabber extends Thread {
 			e.printStackTrace();
 		}
 		root.clearMessage();
-        
 	}
 	
 }
