@@ -23,11 +23,14 @@ public class KeyShortcutReader implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent arg0) {
-		// TODO Auto-generated method stub
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_PRINTSCREEN){
+		//only capture screenshot if the client is active
+		//so when pressing printscreen outside client gets ignored by client
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_PRINTSCREEN && mainFrame.getFrame().isActive()){
+			//i'll leave the following in because sometimes the keylistener won't work or spaz out
+			//prob something to do how i dispose the listener, see windoListner close event for more detail
+			//DEBUG:
 			System.out.println("printscreen!");
 			JFrame frame = mainFrame.getFrame();
-
 			try {
 					new Grabber (
 					frame.getX() + (frame.getWidth() - frame.getContentPane().getWidth())/ 2,

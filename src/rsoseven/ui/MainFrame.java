@@ -43,6 +43,7 @@ public class MainFrame {
 	private JLabel userMessage;
 	private TrayIcon trayIcon;
 	private SystemTray tray = SystemTray.getSystemTray();
+	private RsOSeven a;
 	
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
@@ -52,12 +53,6 @@ public class MainFrame {
 		frame.addWindowListener(new windoListner());
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		label = new JLabel();
-		
-		//add keylistener:
-		GlobalScreen.registerNativeHook();
-		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
-		
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image i = new ImageIcon(new URL("http://tldr.me/1mmv0v5.png")).getImage();
 		frame.setIconImage(i);
 		trayIcon = new TrayIcon(i);
@@ -85,8 +80,13 @@ public class MainFrame {
 		userMessage.setVisible(false);
 		glass.add(userMessage,BorderLayout.SOUTH);
 		
+		
+		//add keylistener:
+		GlobalScreen.registerNativeHook();
+		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
 		//Start adding client
-		RsOSeven a = new RsOSeven();
+		
+		a = new RsOSeven();
 		frame.add(a.getApplet());
 		frame.setSize(new Dimension(770, 530));
 		frame.setMaximumSize(new Dimension(770, 530));
@@ -104,6 +104,7 @@ public class MainFrame {
 		label.setOpaque(false);
 		glass.setOpaque(false);
 		userMessage.setOpaque(false);
+		
 	}
 
 	public JFrame getFrame(){
@@ -120,5 +121,9 @@ public class MainFrame {
 	
 	public void clearMessage(){
 		//userMessage.setVisible(false);
+	}
+	public RsOSeven getApplet(){
+		return a;
+		
 	}
 }

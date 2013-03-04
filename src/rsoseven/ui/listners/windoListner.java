@@ -6,6 +6,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.jnativehook.GlobalScreen;
+
 public class windoListner implements WindowListener {
 
 	@Override
@@ -26,6 +28,7 @@ public class windoListner implements WindowListener {
 		//e.getWindow().dispose();
 		JFrame root = (JFrame)e.getSource();
 		if (0==JOptionPane.showConfirmDialog((JFrame)e.getSource(), "You sure you wanne close?")){
+			GlobalScreen.unregisterNativeHook();
 			root.dispose();
 			System.exit(0);
 		} else {
