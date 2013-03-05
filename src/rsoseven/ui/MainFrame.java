@@ -1,15 +1,19 @@
 package rsoseven.ui;
 
+import java.applet.Applet;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import org.jnativehook.GlobalScreen;
@@ -24,7 +28,9 @@ public class MainFrame {
 	private JFrame frame;
 	private JLabel label;
 	private RsOSeven a;
-	
+	private JPanel glass;
+	private MessageLabel picLabel;
+	private Applet applet;
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, URISyntaxException, NativeHookException {
@@ -47,31 +53,37 @@ public class MainFrame {
 		frame.setVisible(true);
 		frame.pack();
 		
-		//glass = new GhostDrawPanel();
-		//glass = new GhostDrawPanel();
-		//frame.getRootPane().setGlassPane(glass);
-		//glass = (JPanel)frame.getGlassPane();
-		//glass.setVisible(true);
+		glass = (JPanel)frame.getGlassPane();
+		glass.setVisible(true);
 		
+		//oh god, i don't even know, this is the best way to add text to the client...
+		ImageIcon userMessageBackground = new ImageIcon(new URL("http://tldr.me/1kv3wzh.png"));
+		picLabel = new MessageLabel(userMessageBackground);
+		picLabel.setOpaque(true);
+		picLabel.setBackground(null);
+		glass.setLayout(null);
+		glass.add(picLabel);
+		picLabel.setBounds(new Rectangle(new Point(5,480),picLabel.getPreferredSize()));
+		picLabel.setVisible(false);
 		
 		//add keylistener:
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
-		//Start adding client
 		
+		//Start adding client
 		a = new RsOSeven();
-		//JApplet j = new JApplet();
+		applet = (Applet) a.getApplet();
+		
 		frame.add(a.getApplet());
 		
 		frame.setSize(new Dimension(770, 530));
 		frame.setMaximumSize(new Dimension(770, 530));
 		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
 		frame.setMinimumSize(new Dimension(770, 530));
-		//remove loading image
+
 		label.setVisible(false);
 		
-		System.out.println("done");
-		
+		a.getApplet().repaint();		
 	}
 
 	public JFrame getFrame(){
@@ -80,11 +92,18 @@ public class MainFrame {
 	}
 	
 	public void notifyUser(String message){
-
+		picLabel.setMessage(message);
+		frame.repaint();
+		applet.repaint();
+		glass.repaint();
+		picLabel.setVisible(true);
 	}
 	
 	public void clearMessage(){
-	
+		frame.repaint();
+		applet.repaint();
+		glass.repaint();
+		picLabel.setVisible(false);
 	}
 	public RsOSeven getApplet(){
 		return a;
