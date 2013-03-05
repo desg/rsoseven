@@ -7,18 +7,9 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
-
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -30,7 +21,6 @@ import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import rsoseven.ui.MainFrame;
@@ -45,6 +35,7 @@ public class Grabber extends Thread {
 		this.capture = new Robot().createScreenCapture(new Rectangle(xp, yp, xs, ys));
 	}
 	
+	@Override
 	public void run(){
 		String homeDir = System.getProperty("user.home");
 		String s = File.separator;

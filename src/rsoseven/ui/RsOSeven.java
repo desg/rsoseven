@@ -3,26 +3,18 @@ package rsoseven.ui;
 import java.applet.Applet;
 import java.applet.AppletContext;
 import java.applet.AppletStub;
-import java.awt.Color;
 import java.awt.Component;
-import java.io.File;
 import java.io.IOException;
-import java.net.JarURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.URLConnection;
-import java.net.URLStreamHandlerFactory;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import rsoseven.lib.io.ClientWriter;
 import rsoseven.lib.net.FileFletcher;
 import rsoseven.lib.type.ClientConfig;
 import rsoseven.lib.type.RSHeaders;
-import rtsoseven.test.lib.net.FileFletcher_test;
 
 public class RsOSeven implements AppletStub {
 
@@ -89,13 +81,11 @@ public class RsOSeven implements AppletStub {
 		// TODO: needs better way to handle this
 		// classloader.close();
 		// TODO: when client closes end with .close()
-
 		applet.setStub(this);
 		applet.init();
 		applet.start();
-		applet.setFocusable(true);
-		
-		applet.setBackground(new Color(0, 0, 0, 0));
+		applet.setIgnoreRepaint(true);
+		//applet.setFocusable(true);
 	}
 
 	@Override
