@@ -3,7 +3,10 @@ package rsoseven.ui;
 import java.applet.Applet;
 import java.applet.AppletContext;
 import java.applet.AppletStub;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -12,12 +15,18 @@ import java.net.URLClassLoader;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import javax.swing.JPanel;
+
 import rsoseven.lib.net.FileFletcher;
 import rsoseven.lib.type.ClientConfig;
 import rsoseven.lib.type.RSHeaders;
 
-public class RsOSeven implements AppletStub {
+public class RsAppletPanel implements AppletStub {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String jarName;
 	private URL codeBase;
 	private String className;
@@ -25,23 +34,16 @@ public class RsOSeven implements AppletStub {
 	private Applet applet;
 	private URL jarpath;
 	private URLClassLoader classloader;
+	private int hight = 765;
+	private int width = 503;
 
-	public RsOSeven() throws MalformedURLException, IOException,
+	public RsAppletPanel() throws MalformedURLException, IOException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, URISyntaxException {
 
 		FileFletcher a = new FileFletcher(new URL(
 				"http://oldschool.runescape.com/jav_config.ws"),
 				RSHeaders.RS_2007_CONF);
-		// ^this for oldscape
-
-		// FileFletcher a = new FileFletcher(new
-		// URL("http://www.runescape.com/k=3/jav_config.ws"),
-		// RSHeaders.RS_EOC_CONF);
-		// ^this for EOC
-
-		// TODO: write rsc command
-		// ^this for RSC
 
 		ClientConfig b = new ClientConfig(a.getData());
 
@@ -55,27 +57,6 @@ public class RsOSeven implements AppletStub {
 		
 		classloader = new URLClassLoader(new URL[] { jarpath });
 		
-		
-		/*JarURLConnection cl = (JarURLConnection) new URL("jar:"+codeBase.toString()+jarName+"!/").openConnection();
-		cl.setRequestProperty("accept-encoding", "pack200-gzip");
-		cl.setRequestProperty("User-Agent", "Java/1.7.0-internal");
-		cl.setRequestProperty("Host", "www.runescape.com");
-		cl.setRequestProperty("Accept",
-				"text/html, image/gif, image/jpeg, *; q=.2, *//*; q=.2");
-		cl.setRequestProperty("Connection", "keep-alive");
-		 * thisLoader = AppletClassLoader.newInstance(new URL[] {
-		 * clientConnection .getJarFileURL() });
-		 * 
-		 * clientApplet = (Applet) (thisLoader.loadClass(parseArg(
-		 * search(jsInfoPage, codeRegex, 1)).split("\\.")[0]) .newInstance());
-		 * 
-		 * 
-		 * Shit for using compressed client
-		*/
-		
-		//classloader = new URLClassLoader(new URL[] {cl.getJarFileURL()});
-		
-		
 		applet = (Applet) classloader.loadClass(className).newInstance();
 
 		// TODO: needs better way to handle this
@@ -84,20 +65,18 @@ public class RsOSeven implements AppletStub {
 		applet.setStub(this);
 		applet.init();
 		applet.start();
-		applet.setIgnoreRepaint(true);
-		//applet.setFocusable(true);
 	}
 
+	
+	//appletstub part
 	@Override
 	public void appletResize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		applet.resize(width, height);
 	}
 
 	@Override
 	public AppletContext getAppletContext() {
 		return null;
-		// TODO: I don't know what the fuck that does
 	}
 
 	@Override
@@ -112,7 +91,6 @@ public class RsOSeven implements AppletStub {
 
 	@Override
 	public String getParameter(String name) {
-		// TODO Auto-generated method stub
 		return params.get(name);
 	}
 
@@ -122,11 +100,12 @@ public class RsOSeven implements AppletStub {
 	}
 
 	public Component getApplet() {
-		// TODO Auto-generated method stub
 		return applet;
 	}
 
 	public void CloseApplet() throws IOException {
 		classloader.close();
 	}
+	
+	
 }

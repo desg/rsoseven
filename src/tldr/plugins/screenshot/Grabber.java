@@ -99,14 +99,7 @@ public class Grabber extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		root.notifyUser("Screenshot Saved and added to clipboard");
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		root.clearMessage();
+		
 	}
 	
 }

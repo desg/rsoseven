@@ -2,6 +2,8 @@ package rsoseven.ui;
 
 import java.applet.Applet;
 import java.awt.AWTException;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -10,10 +12,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.jnativehook.GlobalScreen;
@@ -27,17 +32,24 @@ public class MainFrame {
 
 	private JFrame frame;
 	private JLabel label;
-	private RsOSeven a;
-	private JPanel glass;
-	private MessageLabel picLabel;
-	private Applet applet;
+	private RsAppletPanel appletPanel;
+	private int topDecorSize;
+	private int sideDecorSize;	
+	private static int RS_CLIENT_X=765;
+	private static int RS_CLIENT_Y=503;
+	private Dimension mainFrameSize; 
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, URISyntaxException, NativeHookException {
 		
+		//set title
 		frame = new JFrame("Runescape 2007 Client");
+		//main window listener
 		frame.addWindowListener(new windoListner());
+		//don't close app when pressing close
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		//frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		
 		label = new JLabel();
 		Image i = new ImageIcon(new URL("http://tldr.me/1fwc8bt.png")).getImage();
 		frame.setIconImage(i);
@@ -47,66 +59,66 @@ public class MainFrame {
 		icon.setImageObserver(null);
 		label.setIcon(icon);
 		label.setVisible(true);
-
 		frame.add(label);
-		frame.setResizable(false);
+		frame.setResizable(false);//FIXME: set back
 		frame.setVisible(true);
 		frame.pack();
 		
-		glass = (JPanel)frame.getGlassPane();
-		glass.setVisible(true);
+		//get size of decorations
+		sideDecorSize = (frame.getWidth()-label.getWidth())/2;
+		topDecorSize = (frame.getHeight()- label.getHeight())-sideDecorSize;
+		mainFrameSize = new Dimension(sideDecorSize*2+RS_CLIENT_X,topDecorSize+sideDecorSize+RS_CLIENT_Y+100);
 		
-		//oh god, i don't even know, this is the best way to add text to the client...
-		ImageIcon userMessageBackground = new ImageIcon(new URL("http://tldr.me/1kv3wzh.png"));
-		picLabel = new MessageLabel(userMessageBackground);
-		picLabel.setOpaque(true);
-		picLabel.setBackground(null);
-		glass.setLayout(null);
-		glass.add(picLabel);
-		picLabel.setBounds(new Rectangle(new Point(5,480),picLabel.getPreferredSize()));
-		picLabel.setVisible(false);
+		
 		
 		//add keylistener:
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
 		
+		
+		
 		//Start adding client
-		a = new RsOSeven();
-		applet = (Applet) a.getApplet();
-		
-		frame.add(a.getApplet());
-		
-		frame.setSize(new Dimension(770, 530));
-		frame.setMaximumSize(new Dimension(770, 530));
-		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
-		frame.setMinimumSize(new Dimension(770, 530));
-
+		appletPanel = new RsAppletPanel();
 		label.setVisible(false);
+		frame.add(appletPanel.getApplet());
 		
-		a.getApplet().repaint();		
+		JPanel a = (JPanel) frame.getGlassPane();
+		a.setVisible(true);
+		a.setLayout(new BorderLayout());
+		
+		BotPanel b = new BotPanel();
+		b.setLayout(new BoxLayout(b,BoxLayout.Y_AXIS));
+		b.setSize(new Dimension(160,100));
+		b.setBackground(Color.black);
+		b.setMaximumSize(new Dimension(160,100));
+		b.setMinimumSize(new Dimension(160,100));
+		a.add(b,BorderLayout.SOUTH);
+		b.add(Box.createRigidArea(new Dimension(1,100)),BorderLayout.SOUTH);
+		JPanel c = new JPanel();
+		
+		c.setSize(new Dimension(RS_CLIENT_X,100));
+		c.setBackground(Color.blue);
+		c.setMaximumSize(new Dimension(RS_CLIENT_X,100));
+		c.setMinimumSize(new Dimension(RS_CLIENT_X,100));
+		b.add(c);
+		frame.setSize(mainFrameSize);
+		frame.setMaximumSize(mainFrameSize);
+		frame.setMinimumSize(mainFrameSize);
+		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
+		
+		/*JPanel c = new JPanel();
+		c.setSize(new Dimension(RS_CLIENT_X,100));
+		c.setBackground(Color.blue);
+		c.setMaximumSize(new Dimension(RS_CLIENT_X,100));
+		c.setMinimumSize(new Dimension(RS_CLIENT_X,100));
+		b.add(c);
+		*/
+		//a.add(Box.createVerticalGlue());
+
 	}
 
 	public JFrame getFrame(){
 		return frame;
-		
-	}
-	
-	public void notifyUser(String message){
-		picLabel.setMessage(message);
-		frame.repaint();
-		applet.repaint();
-		glass.repaint();
-		picLabel.setVisible(true);
-	}
-	
-	public void clearMessage(){
-		frame.repaint();
-		applet.repaint();
-		glass.repaint();
-		picLabel.setVisible(false);
-	}
-	public RsOSeven getApplet(){
-		return a;
 		
 	}
 }

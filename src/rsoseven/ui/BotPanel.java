@@ -5,18 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
-public class MessageLabel extends JLabel{
-	private String message;
-	
-	public MessageLabel(ImageIcon userMessageBackground){
-		super(userMessageBackground);
-		message="uwotmate?";
-		//this.add(new JLabel("HELLO"));
-	}
-	
+import javax.swing.JPanel;
+
+public class BotPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -29,18 +21,7 @@ public class MessageLabel extends JLabel{
 	    g2.setFont(font);
 	    g2.setColor(Color.white);
 
-	    g2.drawString(message,3,14 );
+	    g2.drawString("Must.... kill.... jagex.... antibot... squad.... ",3,14 );
 	    
 	  }
-	
-	
-	public void setMessage(String message){
-		this.message= message;
-		this.repaint();
-	}
-
-	public void setClear(){
-		this.message="";
-		this.repaint();
-	}
 }
