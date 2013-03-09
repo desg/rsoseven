@@ -138,7 +138,7 @@ public class KeyShortcutReader implements NativeKeyListener {
 			} else {
 	 			URL url;
 				try {
-					url = new File("res/nyan.mid").toURI().toURL();
+					url = getClass().getClassLoader().getResource("res/nyan.mid");
 					AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
 			         clip = AudioSystem.getClip();
 			         // Open audio clip and load samples from the audio input stream.
