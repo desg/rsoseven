@@ -27,12 +27,12 @@ public class windoListner implements WindowListener {
 		// TODO Auto-generated method stub
 		//e.getWindow().dispose();
 		JFrame root = (JFrame)e.getSource();
-		if (0==JOptionPane.showConfirmDialog((JFrame)e.getSource(), "You sure you wanne close?")){
+		if (0==JOptionPane.showConfirmDialog((JFrame)e.getSource(), "Are you sure you want to close the client?")){
 			GlobalScreen.unregisterNativeHook();
 			root.dispose();
 			System.exit(0);
 		} else {
-			JOptionPane.showMessageDialog(root, "BE MORE CAREFULL NEXT TIME DUMMY!!");
+			//JOptionPane.showMessageDialog(root, "");
 		}
 
 	}

@@ -74,18 +74,20 @@ public class Grabber extends Thread {
         
 
         httppost.setEntity(mpEntity);
-        System.out.println("executing request " + httppost.getRequestLine());
+        //System.out.println("executing request " + httppost.getRequestLine());
         HttpResponse response;
 		try {
 			response = httpclient.execute(httppost);
 	        HttpEntity resEntity = response.getEntity();
 
-	        System.out.println(response.getStatusLine());
+	        //System.out.println(response.getStatusLine());
 	        if (resEntity != null) {
 	          //System.out.println(EntityUtils.toString(resEntity));
 	    	    StringSelection selection = new StringSelection(EntityUtils.toString(resEntity));
 	    	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 	    	    clipboard.setContents(selection, selection);
+				root.message("Image uploaded to tldr.me URL added to clipboard press CTRL+V on our forums or IRC to view");
+
 	        }
 	        if (resEntity != null) {
 	          resEntity.consumeContent();
