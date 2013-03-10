@@ -4,10 +4,8 @@ import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
@@ -19,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeInputEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
@@ -55,11 +54,6 @@ public class KeyShortcutReader implements NativeKeyListener {
 							- (frame.getWidth() - frame.getContentPane().getWidth()) / 2,
 					frame.getContentPane().getWidth(),
 					frame.getContentPane().getHeight(),mainFrame).run();
-					
-					
-					
-					
-					
 			
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
@@ -69,10 +63,10 @@ public class KeyShortcutReader implements NativeKeyListener {
 				e.printStackTrace();
 			}
 		}
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_C && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeKeyEvent.CTRL_MASK) !=0) ){
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_C && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){
 			Dimension d = mainFrame.getFrame().getSize();
 			Dimension a = mainFrame.getMainFrameSize();
-			if ( d.height == 632){
+			if ( mainFrame.getBot().isVisible()){
 				//FIXME: when you mod a it changes the value of actual screensize
 				//because it points to eachother
 				a.setSize(a.getWidth(),a.getHeight()-100);
@@ -92,32 +86,35 @@ public class KeyShortcutReader implements NativeKeyListener {
 			}
 		}
 		
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_T && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeKeyEvent.CTRL_MASK) !=0) ){
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_T && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){
 			mainFrame.getFrame().setAlwaysOnTop(!mainFrame.getFrame().isAlwaysOnTop());
+			mainFrame.message("To toggle AlwaysOnTop press CTRL+T. PS: Your mom is always on top kid.",Message.INFO);
+
 		}
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_M && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeKeyEvent.CTRL_MASK) !=0) ){
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_M && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){
 		    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 		        try {
+					mainFrame.message("Opening the map... To your mom's bedroom EAYHOO",Message.INFO);
 		            desktop.browse(new URL("http://www.runescape.com/img/rsp777/gamewin/runescape-map-24-july-07.jpg").toURI());
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }
 		    }
 		}
-		if (((((arg0.getModifiers() & NativeKeyEvent.CTRL_MASK) !=0) && arg0.getKeyCode()==NativeKeyEvent.VK_Q) || arg0.getKeyCode() == NativeKeyEvent.VK_F1)  && mainFrame.getFrame().isActive()  ){
+		if (((((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) && arg0.getKeyCode()==NativeKeyEvent.VK_Q) || arg0.getKeyCode() == NativeKeyEvent.VK_F1)  && mainFrame.getFrame().isActive()  ){
 
 			mainFrame.message("",Message.ALERT);
 			mainFrame.message("",Message.ALERT);
 			mainFrame.message("################### CLIENT HELP ###################",Message.ALERT);
 			mainFrame.message("CTRL+C: toggle Chat    CTRL+T: Toggle Always On Top",Message.ALERT);
-			mainFrame.message("ESCAPE: Close Game     CTRL+L: Toggle 1337 Mode",Message.ALERT);			
-			mainFrame.message("CTRL+Q: View Help      CTRL+P: Prod Speshls",Message.ALERT);
+			mainFrame.message("CTRL+X: Close Game     CTRL+L: Toggle 1337 Mode",Message.ALERT);			
+			mainFrame.message("CTRL+Q: View Help      CTRL+N: Nuke North Korea",Message.ALERT);
 			mainFrame.message("CTRL+M: View Map       PRTSCR: Print screen & upload",Message.ALERT);
 			mainFrame.message("################### CLIENT HELP ###################",Message.ALERT);
 		}
 		
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_ESCAPE && mainFrame.getFrame().isActive()  ){
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_X && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){
 			JFrame root = mainFrame.getFrame();
 			if (0==JOptionPane.showConfirmDialog(root, "Are you sure you want to close the client?")){
 				GlobalScreen.unregisterNativeHook();
@@ -128,16 +125,19 @@ public class KeyShortcutReader implements NativeKeyListener {
 			}	
 		}
 		
-		if (arg0.getKeyCode()==NativeKeyEvent.VK_L && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeKeyEvent.CTRL_MASK) !=0) ){ 
+		if (arg0.getKeyCode()==NativeKeyEvent.VK_L && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){ 
 			if (clip != null){
 				if (clip.isRunning()){
 					clip.stop();
+					mainFrame.message("You gone already? Too bad for you, more Nyan for me",Message.INFO);
 				} else {
+					mainFrame.message("Never stop Nyanning",Message.INFO);
 					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				}
 			} else {
 	 			URL url;
 				try {
+					mainFrame.message("1337 Mode Active Scrubs stand back",Message.INFO);
 					url = getClass().getClassLoader().getResource("res/nyan.mid");
 					AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
 			         clip = AudioSystem.getClip();

@@ -3,10 +3,7 @@ package rsoseven.ui;
 import java.applet.Applet;
 import java.applet.AppletContext;
 import java.applet.AppletStub;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -14,8 +11,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Dictionary;
 import java.util.Hashtable;
-
-import javax.swing.JPanel;
 
 import rsoseven.lib.net.FileFletcher;
 import rsoseven.lib.type.ClientConfig;

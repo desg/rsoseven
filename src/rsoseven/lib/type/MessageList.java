@@ -2,10 +2,6 @@ package rsoseven.lib.type;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 
 public class MessageList extends ArrayList<Message> {

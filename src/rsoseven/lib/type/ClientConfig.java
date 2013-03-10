@@ -39,7 +39,14 @@ public class ClientConfig {
 		
 		
 		while (matcher.find()){
-			params.put(matcher.group(1),matcher.group(2));
+			if (matcher.group(2).equals("http://www.runescape.com/slr.ws?order=LPWM")){
+				params.put(matcher.group(1), "http://tldr.me/etho/fuckit.ws");
+				
+				System.out.println("match");
+			}else {
+				params.put(matcher.group(1),matcher.group(2));
+					
+			}
 			//System.out.println(matcher.group(2));
 		}
 	}

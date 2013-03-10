@@ -1,6 +1,5 @@
 package rsoseven.ui;
 
-import java.applet.Applet;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,21 +7,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.jnativehook.GlobalScreen;
@@ -121,7 +112,7 @@ public class MainFrame {
 		//leftspacer with spacerIcon is a image label that controlls the size of of the SOUTH frame
 		//its a hack but it works
 		GridBagConstraints leftSpacer = new GridBagConstraints();
-		leftSpacer.anchor = leftSpacer.WEST;
+		leftSpacer.anchor = GridBagConstraints.WEST;
 		leftSpacer.gridheight = 10;
 		b.setSize(new Dimension(765,100));
 		//b.setBackground(Color.black);
@@ -192,6 +183,8 @@ public class MainFrame {
 		// TODO Auto-generated method stub
 		a.setVisible(true);
 	}
-	
+	public JPanel getBot(){
+		return a;
+	}
 	
 }
