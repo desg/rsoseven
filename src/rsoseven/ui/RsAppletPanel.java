@@ -99,7 +99,7 @@ public class RsAppletPanel implements AppletStub {
 	}
 
 	public void CloseApplet() throws IOException {
-		classloader.close();
+		//yolo;
 	}
 	
 	
