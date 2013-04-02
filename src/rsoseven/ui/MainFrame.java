@@ -50,13 +50,6 @@ public class MainFrame {
 		mList.add(new Message("Welcome to MM client V4, This client is not a cheating/botting tool, Please don't cheat!",Message.INFO));
 		mList.add(new Message("REPORT RUNESCAPE TOS VIOLATIONS TO: Nick.Hermans.Be@Gmail.com",Message.ALERT));
 		mList.add(new Message("To view HELP press CTRL+Q, To close this Box Press CTRL+C",Message.INFO));
-		//mList.add(new Message("Welcome to mm client v3",Message.INFO));
-		//mList.add(new Message("MM TRIP IN 2 DAYS 3 HOURS",Message.ALERT));
-		//mList.add(new Message("You are now speaking in #MM as Ethoxyethaan",Message.INFO));
-		//mList.add(new Message("<Runekas_3>: Lololololoooooool",Message.CHAT));
-		//mList.add(new Message("<Ethoxyethaan>: Shadap kid.",Message.CHAT));
-		//mList.add(new Message("<Runekas_3>: Nou",Message.CHAT));
-		//mList.add(new Message("Screenshot saved as 1213231465.png",Message.INFO));
 		
 		//set title
 		frame = new JFrame("Runescape 2007 Client press CTRL+C to view prompt");
@@ -99,6 +92,8 @@ public class MainFrame {
 		appletPanel = new RsAppletPanel();
 		label.setVisible(false);
 		frame.add(appletPanel.getApplet());
+		
+		
 		
 		a = (JPanel) frame.getGlassPane();
 		a.setVisible(true);

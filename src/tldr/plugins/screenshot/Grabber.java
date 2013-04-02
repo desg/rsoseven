@@ -34,7 +34,6 @@ public class Grabber extends Thread {
 		this.root=root;
 		this.capture = new Robot().createScreenCapture(new Rectangle(xp, yp, xs, ys));
 	}
-	
 	@Override
 	public void run(){
 		String homeDir = System.getProperty("user.home");
