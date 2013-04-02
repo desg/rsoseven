@@ -24,8 +24,6 @@ public enum RSHeaders{
 		headers.put("Accept", accept);
 		headers.put("Connection", connection);
 	}
-	
-	
 	public final Dictionary<String, String> getHeaders() {
 		return headers;
 		

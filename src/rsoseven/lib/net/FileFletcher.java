@@ -31,7 +31,7 @@ public class FileFletcher {
 		}
 		while (e.hasMoreElements()){
 			String key = e.nextElement();
-			if (key.equals("accept-encoding")){
+			if (key.equalsIgnoreCase("accept-encoding")){
 				
 			} 
 			else {
