@@ -50,7 +50,6 @@ public class MainFrame {
 		mList.add(new Message("Welcome to MM client V4, This client is not a cheating/botting tool, Please don't cheat!",Message.INFO));
 		mList.add(new Message("REPORT RUNESCAPE TOS VIOLATIONS TO: Nick.Hermans.Be@Gmail.com",Message.ALERT));
 		mList.add(new Message("To view HELP press CTRL+Q, To close this Box Press CTRL+C",Message.INFO));
-		mList.add(new Message("You are now speaking in #MM as Ethoxyethaan",Message.ALERT));
 		//mList.add(new Message("Welcome to mm client v3",Message.INFO));
 		//mList.add(new Message("MM TRIP IN 2 DAYS 3 HOURS",Message.ALERT));
 		//mList.add(new Message("You are now speaking in #MM as Ethoxyethaan",Message.INFO));
@@ -60,7 +59,7 @@ public class MainFrame {
 		//mList.add(new Message("Screenshot saved as 1213231465.png",Message.INFO));
 		
 		//set title
-		frame = new JFrame("Runescape 2007 Client");
+		frame = new JFrame("Runescape 2007 Client press CTRL+C to view prompt");
 		//main window listener
 		frame.addWindowListener(new windoListner());
 		//don't close app when pressing close
@@ -134,6 +133,8 @@ public class MainFrame {
 		frame.setMinimumSize(mainFrameSize);
 		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
 		
+		this.hideBot();
+		
 		/*JPanel c = new JPanel();
 		c.setSize(new Dimension(RS_CLIENT_X,100));
 		c.setBackground(Color.blue);
@@ -175,12 +176,26 @@ public class MainFrame {
 	}
 
 	public void hideBot() {
-		// TODO Auto-generated method stub
+		Dimension c = mainFrameSize;
+		c.setSize(c.getWidth(),c.getHeight()-100);
+		
+		frame.setMinimumSize(c);
+		frame.setMinimumSize(c);
+		frame.setSize(c);
+		frame.setMaximizedBounds(new Rectangle(c));
+		
 		a.setVisible(false);
 	}
 	
 	public void showBot() {
-		// TODO Auto-generated method stub
+		Dimension c = mainFrameSize;
+		c.setSize(c.getWidth(),c.getHeight()+100);
+				
+		frame.setMaximumSize(c);
+		frame.setMinimumSize(c);
+		frame.setSize(c);
+		frame.setMaximizedBounds(new Rectangle(c));
+
 		a.setVisible(true);
 	}
 	public JPanel getBot(){

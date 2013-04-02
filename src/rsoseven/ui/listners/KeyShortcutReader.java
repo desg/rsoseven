@@ -64,24 +64,12 @@ public class KeyShortcutReader implements NativeKeyListener {
 			}
 		}
 		if (arg0.getKeyCode()==NativeKeyEvent.VK_C && mainFrame.getFrame().isActive() && ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0) ){
-			Dimension d = mainFrame.getFrame().getSize();
-			Dimension a = mainFrame.getMainFrameSize();
 			if ( mainFrame.getBot().isVisible()){
 				//FIXME: when you mod a it changes the value of actual screensize
-				//because it points to eachother
-				a.setSize(a.getWidth(),a.getHeight()-100);
-				mainFrame.getFrame().setMaximumSize(a);
-				mainFrame.getFrame().setMinimumSize(a);
-				mainFrame.getFrame().setSize(a);
-				mainFrame.getFrame().setMaximizedBounds(new Rectangle(a));
+				//because it points to eachother-
 				mainFrame.hideBot();
 				
 			} else {
-				a.setSize(a.getWidth(),a.getHeight()+100);
-				mainFrame.getFrame().setMaximumSize(a);
-				mainFrame.getFrame().setMinimumSize(a);
-				mainFrame.getFrame().setSize(a);
-				mainFrame.getFrame().setMaximizedBounds(new Rectangle(a));
 				mainFrame.showBot();
 			}
 		}
