@@ -49,7 +49,6 @@ public class RsAppletPanel implements AppletStub {
 
 		jarpath = new URL(codeBase.toString() + jarName);
 
-		
 		classloader = new URLClassLoader(new URL[] { jarpath });
 
 		applet = (Applet) classloader.loadClass(className).newInstance();
@@ -62,8 +61,7 @@ public class RsAppletPanel implements AppletStub {
 		applet.start();
 	}
 
-	
-	//appletstub part
+	// appletstub part
 	@Override
 	public void appletResize(int width, int height) {
 		applet.resize(width, height);
@@ -99,9 +97,8 @@ public class RsAppletPanel implements AppletStub {
 	}
 
 	public void CloseApplet() throws IOException {
-		//yolo;
-		
+		// yolo;
+
 	}
-	
-	
+
 }

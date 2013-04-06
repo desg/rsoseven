@@ -8,8 +8,9 @@ import org.jnativehook.NativeHookException;
 import rsoseven.ui.MainFrame;
 
 public class Client {
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, AWTException, IOException, URISyntaxException, NativeHookException {
+	public static void main(String[] args) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException, AWTException,
+			IOException, URISyntaxException, NativeHookException {
 		new MainFrame();
 	}
-	
 }
