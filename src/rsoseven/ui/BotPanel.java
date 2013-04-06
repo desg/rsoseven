@@ -26,13 +26,12 @@ public class BotPanel extends JPanel {
 	    super.paintComponent(g);
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	        RenderingHints.VALUE_ANTIALIAS_ON);
-
+	    
 	    g2.drawImage(bimg,0,0,null);
 	    Font font = new Font("Courier", Font.BOLD, 8);
 	    g2.setFont(font);
-	    g2.setColor(Color.black);
-	    
-	    
+	    g2.setColor(Color.black);    
 	    frame.getMessageList().write(g2, 10, 15);
-	  }
+	  
+	}
 }

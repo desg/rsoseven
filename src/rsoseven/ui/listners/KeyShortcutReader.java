@@ -146,10 +146,11 @@ public class KeyShortcutReader implements NativeKeyListener {
                 }
             }
         },
-        NUKE_N_K {
+        NUKE_N_K (NativeKeyEvent.VK_N){
             @Override
             public void perform() {
-                mainFrame.message("Failure to launch..", Message.ALERT);
+            	mainFrame.message("ICBM USS Missouri (SSN-780) set for 39.0333° N, 125.7500° E",Message.ALERT);
+            	mainFrame.message("Error 0xDEFEC8ED: Gold Sequence missmatch, CORE DUMPED!",Message.ALERT);
             }
         },
         PRINT_SCREEN(NativeKeyEvent.VK_PRINTSCREEN) {

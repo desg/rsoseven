@@ -41,8 +41,6 @@ public class ClientConfig {
 		while (matcher.find()){
 			if (matcher.group(2).equals("http://www.runescape.com/slr.ws?order=LPWM")){
 				params.put(matcher.group(1), "http://tldr.me/etho/rs2007/slr.php");
-				
-				System.out.println("match");
 			}else {
 				params.put(matcher.group(1),matcher.group(2));
 					

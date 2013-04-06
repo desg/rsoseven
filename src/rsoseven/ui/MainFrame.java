@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +27,7 @@ import rsoseven.ui.listners.windoListner;
 
 
 public class MainFrame {
-
+	
 	private JFrame frame;
 	private JLabel label;
 	private RsAppletPanel appletPanel;
@@ -55,11 +56,12 @@ public class MainFrame {
 		frame = new JFrame("Runescape 2007 Client press CTRL+C to view prompt");
 		//main window listener
 		frame.addWindowListener(new windoListner());
+		frame.setLocationRelativeTo(null);
 		//don't close app when pressing close
-		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);		
+		
 		//frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		b = new BotPanel(this);
-
 		
 		label = new JLabel();
 		//new ImageIcon(getClass().getResource("images/mark.gif"));
@@ -68,32 +70,29 @@ public class MainFrame {
 		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("res/loader.gif"));
 		ImageIcon spacerIcon = new ImageIcon(getClass().getClassLoader().getResource("res/spacer.png"));
 		icon.setImageObserver(null);
+		
 		label.setIcon(icon);
 		label.setVisible(true);
 		frame.add(label);
 		frame.setResizable(false);//FIXME: set back
 		frame.setVisible(true);
 		frame.pack();
-		
+		frame.setLocationRelativeTo(null);
+
 		//get size of decorations
 		sideDecorSize = (frame.getWidth()-label.getWidth())/2;
 		topDecorSize = (frame.getHeight()- label.getHeight())-sideDecorSize;
 		mainFrameSize = new Dimension(sideDecorSize*2+RS_CLIENT_X,topDecorSize+sideDecorSize+RS_CLIENT_Y+100);
 		
-		
-		
 		//add keylistener:
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
-		
-		
-		
+				
 		//Start adding client
 		appletPanel = new RsAppletPanel();
 		label.setVisible(false);
 		frame.add(appletPanel.getApplet());
-		
-		
+		frame.setLocationRelativeTo(null);
 		
 		a = (JPanel) frame.getGlassPane();
 		a.setVisible(true);
@@ -127,7 +126,8 @@ public class MainFrame {
 		frame.setMaximumSize(mainFrameSize);
 		frame.setMinimumSize(mainFrameSize);
 		frame.setMaximizedBounds(new Rectangle(frame.getSize()));
-		
+		frame.setLocationRelativeTo(null);
+
 		this.hideBot();
 		
 		/*JPanel c = new JPanel();

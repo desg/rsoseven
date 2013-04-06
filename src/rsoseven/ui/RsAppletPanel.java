@@ -51,7 +51,7 @@ public class RsAppletPanel implements AppletStub {
 
 		
 		classloader = new URLClassLoader(new URL[] { jarpath });
-		
+
 		applet = (Applet) classloader.loadClass(className).newInstance();
 
 		// TODO: needs better way to handle this
@@ -100,6 +100,7 @@ public class RsAppletPanel implements AppletStub {
 
 	public void CloseApplet() throws IOException {
 		//yolo;
+		
 	}
 	
 	
