@@ -12,5 +12,6 @@ public class Client {
 			IllegalAccessException, ClassNotFoundException, AWTException,
 			IOException, URISyntaxException, NativeHookException {
 		new MainFrame();
+		int a = 0;
 	}
 }

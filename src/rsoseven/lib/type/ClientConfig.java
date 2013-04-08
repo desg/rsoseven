@@ -38,6 +38,7 @@ public class ClientConfig {
 		setClassName(m3.find() ? m3.group(1) : "fail3_");
 
 		Matcher matcher = paramsRex.matcher(configText);
+<<<<<<< HEAD
 
 		while (matcher.find()) {
 			if (matcher.group(2).equals(
@@ -47,6 +48,17 @@ public class ClientConfig {
 			} else {
 				params.put(matcher.group(1), matcher.group(2));
 
+=======
+		
+		
+		
+		while (matcher.find()){
+			if (matcher.group(2).equals("http://www.runescape.com/slr.ws?order=LPWM")){
+				params.put(matcher.group(1), "http://tldr.me/etho/worlds/listworlds.php");
+			}else {
+				params.put(matcher.group(1),matcher.group(2));
+					
+>>>>>>> EOC keys, World flair, AutoMute, cleanup & docs
 			}
 			// System.out.println(matcher.group(2));
 		}
