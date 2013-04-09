@@ -42,7 +42,7 @@ public class KeyShortcutReader implements NativeKeyListener {
 		// TODO Auto-generated constructor stub
 		this.mainFrame=mainFrame;
 		this.ignore=false;
-		this.legacy=true;
+		this.legacy=false;
 	}
 
 	@Override
