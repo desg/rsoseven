@@ -25,9 +25,12 @@ import org.jnativehook.NativeHookException;
 
 import rsoseven.lib.type.Message;
 import rsoseven.lib.type.MessageList;
+import rsoseven.ui.listners.DerpListen;
 import rsoseven.ui.listners.KeyShortcutReader;
+import rsoseven.ui.listners.mouseListen;
 import rsoseven.ui.listners.windoListner;
 import tldr.plugins.screenshot.MuteDatShitWopWopWopBoom;
+import tldr.plugins.screenshot.RobotTask;
 
 
 public class MainFrame {
@@ -45,7 +48,12 @@ public class MainFrame {
 	private JPanel a;
 	private Robot robot;
 	private Point screencorner = new Point(0,0);
+	private RobotTask roboTask;
 	
+	public RobotTask getRoboTask() {
+		return roboTask;
+	}
+
 	public MainFrame() throws AWTException, IOException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, URISyntaxException, NativeHookException {
@@ -58,7 +66,7 @@ public class MainFrame {
 		//Add startup messages
 		mList.add(new Message("This console is NOT part of Runescape!!!",Color.DARK_GRAY));
 		mList.add(new Message("And is not official, endorsed, or moderated by JAGEX LTD.",Color.DARK_GRAY));
-		mList.add(new Message("It's  not allowed to use this client to break the JAGEX Rules of Conduct.",Color.DARK_GRAY));
+		mList.add(new Message("It's not allowed to use this client to break the JAGEX Rules of Conduct.",Color.DARK_GRAY));
 		mList.add(new Message("Welcome to MM 2007 client V5, This client is not a cheating/botting tool!",Message.INFO));
 		mList.add(new Message("REPORT RUNESCAPE TOS VIOLATIONS TO: Nick.Hermans.Be@Gmail.com",Message.ALERT));
 		mList.add(new Message("To view HELP press CTRL+Q, To close this Box Press CTRL+C",Message.INFO));
@@ -142,14 +150,21 @@ public class MainFrame {
 		
 		//screencorner, this is usefull for clicks & positioning in the client
 		//this needs to be REFRESHED each time when called (because user can move the client)
+		roboTask = new RobotTask(this);
+		roboTask.start();
+		
 		screencorner = new Point(frame.getLocation().x+sideDecorSize,frame.getLocation().y+topDecorSize);
 		MuteDatShitWopWopWopBoom mute = new MuteDatShitWopWopWopBoom(this);
 		mute.start();
+	
+		
 		
 		GlobalScreen.registerNativeHook();
 		GlobalScreen.getInstance().addNativeKeyListener(new KeyShortcutReader(this));
+		GlobalScreen.getInstance().addNativeMouseListener(new mouseListen(this));
 		
-	}
+		
+		}
 
 	public Point getScreencorner() {
 		screencorner.setLocation(frame.getLocation().x+sideDecorSize,frame.getLocation().y+topDecorSize);
