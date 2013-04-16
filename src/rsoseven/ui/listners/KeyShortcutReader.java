@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -57,9 +58,14 @@ public class KeyShortcutReader implements NativeKeyListener {
 	public void nativeKeyPressed(NativeKeyEvent arg0) {
 		//only capture if game is active else dispose (don't capture keys when in background)
 		if (mainFrame.getFrame().isActive() && mainFrame.getFrame().isShowing() && mainFrame.getFrame().isFocused()){
-
 			//handle keys when ctrl is pressed
-			if ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0){
+			if ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0 && arg0.getModifiers() ==2){
+				//FIXME: issue that this idiot 0dac reported.
+				
+				System.out.println("BIT & MODIFIER ON CTRL: " +(arg0.getModifiers() & NativeInputEvent.CTRL_MASK));
+				System.out.println("MODIFIER: "+ arg0.getModifiers() );
+				System.out.println("TEXT MODIFIER: "+NativeInputEvent.getModifiersText(arg0.getModifiers()));
+				
 				
 				//hotkey: TOGGLE EOC KEYS
 				if (arg0.getKeyCode()==NativeKeyEvent.VK_E ){
@@ -329,7 +335,9 @@ public class KeyShortcutReader implements NativeKeyListener {
 					e.printStackTrace();
 				} 
 			this.readyToType=false;
+			
 		} else if(arg0.getKeyCode()==KeyEvent.VK_CONTROL && this.joinFC){
+			
 			FcJoin fcjoiner = new FcJoin(mainFrame);
 			fcjoiner.start();
 			this.joinFC = false;
