@@ -34,7 +34,7 @@ public class FcJoin extends Thread{
 		Color rgbcorner = robot.getPixelColor(root.getScreencorner().x,root.getScreencorner().y);
 		Color refrgb = new Color(25,19,5);
 		if (rgbcorner.equals(refrgb)){
-			System.err.println(rgbcorner+" "+refrgb);
+			//System.err.println(rgbcorner+" "+refrgb);
 			robot.keyPress(KeyEvent.VK_F7);
 			robot.keyRelease(KeyEvent.VK_F7);
 			//600 450

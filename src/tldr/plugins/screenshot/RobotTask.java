@@ -39,7 +39,7 @@ public class RobotTask extends Thread {
 
 		//lock thread, not standard way but is less of a pain in the ass for this class
 		for (CharSequence i: backup){
-			System.out.println("writing");
+			//System.out.println("writing");
 			//robot.keyRelease(KeyEvent.VK_CONTROL);
 			//write everythign away.
 			this.type(i);

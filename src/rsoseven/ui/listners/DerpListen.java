@@ -247,6 +247,7 @@ public class DerpListen implements KeyListener{
 		// TODO Auto-generated method stub
 
 		if (lastkey==e.getKeyCode()){
+			
 			ignore=false;
 		} else {
 

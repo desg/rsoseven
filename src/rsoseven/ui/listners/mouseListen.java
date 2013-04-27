@@ -26,8 +26,13 @@ public class mouseListen implements NativeMouseListener{
 		// TODO Auto-generated method stub
 		if(root.getFrame().isActive() && root.getFrame().isShowing() && root.getFrame().isFocused() && (arg0.getButton()==MouseEvent.BUTTON2) ){
 			//System.out.println("pressed");
+			/*
+			
 			GetName a = new GetName(root, arg0.getPoint());
 			a.start();
+			*/
+			
+			//TODO: ^ getname
 		}
 	}
 

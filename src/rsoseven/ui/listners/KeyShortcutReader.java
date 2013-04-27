@@ -33,7 +33,6 @@ import rsoseven.lib.type.Message;
 import rsoseven.ui.MainFrame;
 import tldr.plugins.screenshot.FcJoin;
 import tldr.plugins.screenshot.Grabber;
-import tldr.plugins.screenshot.RobotTask;
 
 
 
@@ -46,26 +45,35 @@ public class KeyShortcutReader implements NativeKeyListener {
 	private int lastkey=0;
 	private boolean readyToType=false;
 	private boolean joinFC =false;
-
+	private boolean altgrpressed = false;
+	
 	public KeyShortcutReader(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub
 		this.mainFrame=mainFrame;
 		this.ignore=false;
 		this.legacy=false;
+		this.altgrpressed =false;
 	}
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent arg0) {
+		
+		/*if (arg0.getModifiers()==10 || arg0.getModifiers()==8){
+			//altGR hack
+			//ALT CAR
+			this.altgrpressed=true;
+			System.out.println("altgr pressed");
+		}*/
 		//only capture if game is active else dispose (don't capture keys when in background)
 		if (mainFrame.getFrame().isActive() && mainFrame.getFrame().isShowing() && mainFrame.getFrame().isFocused()){
 			//handle keys when ctrl is pressed
+			/*
+			System.out.println("BIT & MODIFIER ON CTRL: " +(arg0.getModifiers() & NativeInputEvent.CTRL_MASK));
+			System.out.println("MODIFIER: "+ arg0.getModifiers() );
+			System.out.println("TEXT MODIFIER: "+NativeInputEvent.getModifiersText(arg0.getModifiers()));
+			*/
 			if ((arg0.getModifiers() & NativeInputEvent.CTRL_MASK) !=0 && arg0.getModifiers() ==2){
 				//FIXME: issue that this idiot 0dac reported.
-				
-				System.out.println("BIT & MODIFIER ON CTRL: " +(arg0.getModifiers() & NativeInputEvent.CTRL_MASK));
-				System.out.println("MODIFIER: "+ arg0.getModifiers() );
-				System.out.println("TEXT MODIFIER: "+NativeInputEvent.getModifiersText(arg0.getModifiers()));
-				
 				
 				//hotkey: TOGGLE EOC KEYS
 				if (arg0.getKeyCode()==NativeKeyEvent.VK_E ){
@@ -116,6 +124,7 @@ public class KeyShortcutReader implements NativeKeyListener {
 					mainFrame.message("CTRL+X: Close Game     CTRL+L: Toggle 1337 Mode",Message.ALERT);			
 					mainFrame.message("CTRL+Q: View Help      CTRL+E: Enable EOC legacy keys",Message.ALERT);
 					mainFrame.message("CTRL+M: View Map       PRTSCR: Print screen & upload",Message.ALERT);
+					mainFrame.message("CTRL+F: Join MM FC     CTRL+V: Paste text in chat",Message.ALERT);
 					mainFrame.message("################### CLIENT HELP ###################",Message.ALERT);
 				}
 
@@ -343,7 +352,13 @@ public class KeyShortcutReader implements NativeKeyListener {
 			this.joinFC = false;
 		}
 		
-		
+		else if (arg0.getKeyCode() == KeyEvent.VK_ALT_GRAPH){
+			this.mainFrame.getRobot().keyPress(KeyEvent.VK_CONTROL);
+			this.mainFrame.getRobot().delay(10);
+			this.mainFrame.getRobot().waitForIdle();
+			this.mainFrame.getRobot().keyRelease(KeyEvent.VK_CONTROL);
+			this.altgrpressed=false;
+		}
 	}
 
 	@Override
